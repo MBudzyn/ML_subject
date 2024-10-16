@@ -7,10 +7,7 @@ data_directory = "netflix_titles.csv"
 
 
 def ignore_first_space(obj):
-    string = str(obj)
-    if string[0] == " ":
-        return string[1:]
-    return string
+    return str(obj).lstrip(" ")
 
 class NetflixData:
     def __init__(self, data_dir):
