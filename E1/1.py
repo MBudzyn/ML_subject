@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-
 from sklearn.preprocessing import OneHotEncoder
 
 data_directory = "netflix_titles.csv"
