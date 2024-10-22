@@ -131,9 +131,8 @@ class NetflixData:
 
 
 netflix_data = NetflixData(data_directory)
-
-print("=================")
-
+netflix_data.data_description()
 netflix_data.data_preprocessing()
 netflix_data.data_description()
+
 
