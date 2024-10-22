@@ -61,7 +61,7 @@ class NetflixData:
         print(self.data.head())
         self.empty_values_description()
         self.view_date_added_format()
-        # self.view_duration()
+        self.view_duration()
         self.view_rating()
         self.view_type()
 
@@ -130,10 +130,8 @@ class NetflixData:
 
 
 netflix_data = NetflixData(data_directory)
-# netflix_data.data_description()
-# netflix_data.data_preprocessing()
-# netflix_data.data_description()
-netflix_data.empty_values_description()
-netflix_data.view_rating()
+netflix_data.data_preprocessing()
+netflix_data.data_description()
+
 
 
