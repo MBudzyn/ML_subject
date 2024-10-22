@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 
+
 data_directory = "netflix_titles.csv"
 
 
@@ -129,6 +130,10 @@ class NetflixData:
 
 
 netflix_data = NetflixData(data_directory)
-netflix_data.data_description()
+# netflix_data.data_description()
 # netflix_data.data_preprocessing()
 # netflix_data.data_description()
+netflix_data.empty_values_description()
+netflix_data.view_rating()
+
+
