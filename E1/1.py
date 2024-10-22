@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os, sys
 
+from sklearn.preprocessing import OneHotEncoder
 
 data_directory = "netflix_titles.csv"
 
@@ -11,6 +12,8 @@ data_directory = "netflix_titles.csv"
 
 def ignore_first_space(obj):
     return str(obj).lstrip(" ")
+
+
 def cut_to_first_space(obj):
     return str(obj).split(" ")[0]
 
@@ -56,11 +59,27 @@ class NetflixData:
         print(self.data['movie duration'].describe())
         print(self.data['tv show duration'].describe())
 
-    def view_rating(self):
+    def rating_info(self):
         print(self.data['rating'].unique())
         print(self.data['rating'].describe())
         print(self.data['rating'].value_counts())
         print(self.data[self.data['rating'] == "84 min"])
+
+    def delete_wrong_ratings(self):
+        self.data.loc[self.data['rating'] == "84 min", 'rating'] = np.nan
+        self.data.loc[self.data['rating'] == "74 min", 'rating'] = np.nan
+        self.data.loc[self.data['rating'] == "66 min", 'rating'] = np.nan
+
+    def transform_rating(self):
+        transformer = OneHotEncoder(sparse_output=False)
+        transformed_ratings = transformer.fit_transform(self.data['rating'].values.reshape(-1, 1))
+        self.data['rating'] = list(transformed_ratings)
+        self.data['rating'] = self.data['rating'].apply(lambda x: tuple(x))
+
+    def view_rating(self):
+        print(self.data['rating'].unique())
+        print(self.data['rating'].describe())
+        print(self.data['rating'].value_counts())
 
     def fill_empty_rating(self):
         self.data["rating"] = self.data['rating'].fillna("No category")
@@ -96,5 +115,10 @@ netflix_data.fill_empty_duration()
 netflix_data.duration_split()
 netflix_data.duration_to_int()
 netflix_data.print_data_info()
+netflix_data.delete_wrong_ratings()
+netflix_data.fill_empty_rating()
+netflix_data.transform_rating()
+netflix_data.print_data_info()
+netflix_data.rating_info()
 
 
