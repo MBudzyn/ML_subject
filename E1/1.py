@@ -27,8 +27,8 @@ class NetflixData:
         print(self.data.info())
         print(self.data.head())
 
-    def parse_type_to_bool(self):
-        self.data['type'] = self.data['type'].map({'TV Show': False, 'Movie': True})
+    def parse_type_to_int(self):
+        self.data['type'] = self.data['type'].map({'TV Show': 0, 'Movie': 1})
 
     def parse_date_added(self):
         self.data['date_added'] = self.data['date_added'].apply(ignore_first_space)
@@ -62,12 +62,11 @@ class NetflixData:
         print(self.data['rating'].value_counts())
         print(self.data[self.data['rating'] == "84 min"])
 
-
     def fill_empty_rating(self):
         self.data["rating"] = self.data['rating'].fillna("No category")
 
     def fill_empty_duration(self):
-        self.data['duration'] = self.data['duration'].fillna(self.data["rating"])
+        self.data["duration"] = self.data['duration'].fillna(self.data["rating"])
 
     def duration_split(self):
         self.data['movie duration'] = self.data['duration'].where(self.data['type'] == True)
@@ -81,20 +80,20 @@ class NetflixData:
 
 netflix_data = NetflixData(data_directory)
 netflix_data.drop_id()
-netflix_data.parse_type_to_bool()
+netflix_data.parse_type_to_int()
 netflix_data.print_data_info()
 print("=================")
 netflix_data.empty_values_description()
 netflix_data.view_date_added_format()
 netflix_data.parse_date_added()
-netflix_data.print_data_info()
 netflix_data.duration_split()
+netflix_data.print_data_info()
 netflix_data.view_duration()
 netflix_data.print_data_info()
 #netflix_data.fill_empty_rating()
 netflix_data.view_rating()
 netflix_data.fill_empty_duration()
-
+netflix_data.duration_split()
 netflix_data.duration_to_int()
 netflix_data.print_data_info()
 
