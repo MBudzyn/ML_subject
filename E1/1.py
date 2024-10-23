@@ -27,6 +27,12 @@ class NetflixData:
         print(self.data.isnull().sum())
         print(f"sum of empty values in the data: {self.data.isnull().sum().sum()}")
 
+    def view_listed_in(self):
+        print("view listed in")
+        print(self.data['listed_in'].unique())
+        print(self.data['listed_in'].describe())
+        print(self.data['listed_in'].value_counts())
+
     def view_type(self):
         print("view type")
         print(self.data['type'].unique())
@@ -131,7 +137,8 @@ class NetflixData:
 
 netflix_data = NetflixData(data_directory)
 netflix_data.data_preprocessing()
-netflix_data.data_description()
+netflix_data.view_listed_in()
+
 
 
 
